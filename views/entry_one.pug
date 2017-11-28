@@ -1,0 +1,42 @@
+extends layout
+
+block content
+	.container
+		
+		.profile-mainpic
+			img.profile-mainpic(src='../images/marblepineapple1.jpg', alt='marble', width='100%', height='100%')
+		#IntroText2
+			h1 Blog Post
+		
+		.blogpost
+			h3 #{title}
+			p #{body}
+		.blogpost-profile
+			p Name: #{userValue.firstname} #{userValue.lastname}
+			p Username: @#{userValue.username}
+			p Email: #{userValue.email}
+			p Blogpost ID: #{id}
+			.blogpost-profile-pic
+				img#entryonepic(src= `${userValue.profilePicture}` style='width:50%;height:50%;border-radius:50%')
+		.commentform
+			form.col.s12(action='/entry_one', method='POST', autocomplete='off')
+				h4 Leave a comment!
+				textarea#argument(rows='5', name='argument', placeholder='comment')
+				input(type='number',name='blogpostId', value= `${id}`, style='display:none;')
+				br
+				br
+				button.btn.btn-default(type="submit", name="submit") SUBMIT
+		.comments
+			if commentValue
+				each comment in commentValue
+					.single-comment
+						.comment-body
+							p "#{comment.argument}"
+							p From user: #{comment.userId}
+						.createdAt
+							p #{comment.createdAt}
+
+	script.
+		$(document).ready(function() {
+		$("#IntroText2").hide().fadeIn(4000);
+		});

@@ -1,0 +1,16 @@
+extends layout
+
+block content
+	.marble
+		img(src="../images/marblepineapple1.jpg" alt="marble")
+		.marbletext Make a new blog post!
+	.center-form
+		form.col.s12(action='/newentry', method='POST', autocomplete='off')
+			p Title
+			input#blogtitle(type='text', rows='2', name='title', placeholder='title')
+			br
+			p Body
+			textarea#blogbody(rows='10', name='body', placeholder='body')
+			br
+			br
+			button.btn.btn-default#signup(type="submit", name="submit") SUBMIT

@@ -1,0 +1,33 @@
+doctype html
+html
+	head
+		link(rel='stylesheet', type='text/css', href='css/fonts/fonts.css')
+		link(rel="stylesheet" type="text/css" href="css/style.css")
+		script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+		title Blog App
+	body
+		.marble
+			img(src="../images/marblepineapple1.jpg" alt="marble")
+			.marbletext AMSTERDAM EATS
+			if user
+				h3 Hey! You're already signed in.
+				a(href='/profile') go to your profile
+				br
+				a(href='/logout') log out
+			else
+				.loginbox
+				h2 Log In
+				form#loginform(action='/' method='post' autocomplete='off')
+				p email
+				input#email(name='email' required)
+				p password
+				input#password(name='password' type='password' required)
+				br
+				br
+				input(type='submit' value='login' id='submit')
+				br
+				h3 Not a user?
+				a(href='/signup') sign up here
+				br
+				br
+				h5#error-message= message

@@ -1,0 +1,20 @@
+extends layout
+
+block content
+	.marble
+		img(src="../images/marblepineapple1.jpg" alt="marble")
+		.marbletext Our Users
+	each user in userResults
+		.allposts2
+			.user-firstname
+				| #{user.firstname}
+			.user-pic
+				img(src=`${user.profilePicture}` style='width:45%;height:45%;border-radius:100%')
+			.user-info
+				| Username : #{user.username}
+				br
+				| Email Address : #{user.email}
+				br
+				| User ID :  #{user.id}
+			.user-profile
+				a(href='/allusers/'+user.id) View Profile

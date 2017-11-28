@@ -1,0 +1,19 @@
+extends layout
+
+block content
+	.marble
+		img(src="../images/marblepineapple1.jpg" alt="marble")
+		.marbletext All Entries
+	each blogpost in postList
+		.allposts
+			.blogtitle
+				| #{blogpost.title}
+			br
+			.blogbody
+				| #{blogpost.body}
+			br
+			.bloguser
+				| Written By: #{blogpost.user.username}
+				br
+				a(href='/entries/'+blogpost.id) Learn More
+				

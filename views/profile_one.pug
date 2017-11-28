@@ -1,0 +1,31 @@
+extends layout
+
+block content
+	.container
+		.profile-mainpic
+			img.profile-mainpic(src='../images/marblepineapple1.jpg', alt='marble', width='100%', height='100%')
+		#IntroText
+			h1 Hi, #{firstname}!
+		.box-profile
+		.heading-profile
+			h3 Profile
+		.profile-picture
+			img(src= `${profilePicture}` style='width:100%;height:100%')
+		.profile-description
+			p Name: #{firstname} #{lastname}
+			p Username: @#{username}
+			p Email: #{email}
+			p Posts Made: [need help]
+		.box-recentposts
+		.heading-recentposts
+			h3 Recent Posts
+		.box-postone
+			h4 Title 1
+			p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis, ad?
+		.box-posttwo
+			h4 Title 2
+			p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis, ad?
+	script.
+		$(document).ready(function() {
+		$("#IntroText").hide().fadeIn(4000);
+		});

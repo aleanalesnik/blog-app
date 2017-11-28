@@ -1,0 +1,28 @@
+doctype html
+html(lang='en')
+	head
+		meta(charset='UTF-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		link(rel='stylesheet', type='text/css', href='../css/fonts/fonts.css')
+		link(rel='stylesheet', type='text/css', href='../css/style.css')
+		script(src='https://code.jquery.com/jquery-1.10.2.js')
+		title Amsterdam Eats
+	body
+		.container
+			.navbar  
+			.navbar-logo
+				a(href='/profile')
+					img(src='../images/logo/logo1.png', alt='logo', style='width:100%;height:100%;border-radius:100%')
+			.nav-home
+				a(href='/') Home
+			.nav-profile
+				a(href='/profile') Profile
+			.nav-newentry
+				a(href='/newentry') New Post
+			.nav-allusers
+				a(href='/allusers') Users
+			.nav-entries
+				a(href='/entries') Entries
+			.nav-logout
+				a(href='/logout') Logout
+	block content
