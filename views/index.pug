@@ -15,19 +15,20 @@ html
 				br
 				a(href='/logout') log out
 			else
-				.loginbox
 				h2 Log In
-				form#loginform(action='/' method='post' autocomplete='off')
-				p email
-				input#email(name='email' required)
-				p password
-				input#password(name='password' type='password' required)
-				br
-				br
-				input(type='submit' value='login' id='submit')
-				br
+				form(action='/' method='post' autocomplete='off')
+					p email
+					input#email(name='email' required)
+					br
+					h5#error-message= message
+					br
+					p password
+					input(name='password' type='password' required)
+					br
+					br
+					button.btn.btn-default(type="submit", name="submit") login
+					br
 				h3 Not a user?
 				a(href='/signup') sign up here
 				br
 				br
-				h5#error-message= message

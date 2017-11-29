@@ -9,13 +9,25 @@ GREEN COLORS
 - medium #9ba1a5
 - slightly darker #83888b
 
+
+/*
+font-family: 'Absurdsans FP';
+font-family: 'Roboto';
+font-family: 'Roboto Cn';
+font-family: 'Paradox';
+font-family: 'KG A Little Swag';
+font-family: 'CaslonCP';
+font-family: 'Bebas Kai';
+font-family: 'Buba DEMO Outline';
+font-family: 'Shorthalt';
 */
 
 
 
 
 
-/*----------BASIC STYLING----------*/
+
+/* BASIC STYLING---------------------------------------------------------- */
 .container {
     display: grid;
     grid-template-columns: repeat(19, 2fr);
@@ -41,43 +53,73 @@ a:hover {
     color: #506254;
 }
 
+/*-----HEADINGS-----*/
 h1 {
     font-family: 'CaslonCP';
-    font-size: 4rem;
+    font-size: 4.5rem;
 }
 
 h2 {
     font-size: 3rem;
     font-family: 'CaslonCP';
+    margin:0;
+    padding:0;
 }
 
 h3 {
     font-family: 'CaslonCP';
     font-size: 2rem;
+    text-decoration: underline;
+    margin:15px;
+    padding:0;
 }
 
 
 h4 {
     font-size: 1.5rem;
-    display: inline-block;
+    margin:0;
+    padding:0;
 }
 
 h5 {
     font-family: 'CaslonCP';
-    font-size: 1.5rem;
-    background: rgba(152, 161, 138, 0.5);
-    display: inline-block;
+    font-size: 1.2rem;
+    margin:0;
+    padding:0;
+    margin:10px;
 
+}
+
+h6 {
+    font-size: 1rem;
+    margin:0;
+    padding:0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 p {
     font-size: 1rem;
 }
-/* -------------------- */
+
+
+.createdAt {
+    font-style: italic;
+    font-size: 0.8rem;
+    color: grey;
+}
+
+
+#error-message {
+    background: rgba(152, 161, 138, 0.5);
+    display: inline-block;
+}
+
+/* ---------------------------------------------------------------------------- */
 
 
 
-/* ---------- NAV BAR & HEADER ---------- */
+/* NAV BAR & HEADER------------------------------------------------------------ */
 .navbar {
     grid-row: 1/2;
     grid-column: 1/20;
@@ -149,29 +191,13 @@ p {
     font-size: 1rem;
     line-height: 2.3em;
 }
-/* -------------------- */
+/* ----------------------------------------------------------------------------- */
 
 
 
 
 
-/* ---------- LANDING PAGE ---------- */
-
-
-/*
-font-family: 'Absurdsans FP';
-font-family: 'Roboto';
-font-family: 'Roboto Cn';
-font-family: 'Paradox';
-font-family: 'KG A Little Swag';
-font-family: 'CaslonCP';
-font-family: 'Bebas Kai';
-font-family: 'Buba DEMO Outline';
-font-family: 'Shorthalt';
-*/
-
-
-
+/* LANDING PAGE ------------------------------------------------------------------ */
 .marble {
     position: relative;
     text-align: center;
@@ -188,21 +214,20 @@ img {
 
 .marbletext {
    font-family: 'CaslonCP';
-    font-size: 80px;
-    /*font-weight: bold;*/
+    font-size: 90px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     letter-spacing: 10px;
 }
-/* -------------------- */
+/* --------------------------------------------------------------------------- */
 
 
 
 
 
-/* ---------- MAIN PIC WITH DROP-DOWN TEXT  ----------
+/* MAIN PIC WITH DROP-DOWN TEXT--------------------------------------------------
 
 Pug pages used in:
 profile page (profile.pug)
@@ -222,154 +247,144 @@ single blog entry (entry_one.pug)
     z-index: 2;
     color: black;
 }
-/* -------------------- */
+/* --------------------------------------------------------------------------- */
 
 
 
 
 
-/*-------------------------------------------------------------------------- */
-/* ---------- PROFILE PAGE (profile.pug) ---------- */
 
+/* PROFILE PAGE (profile.pug)---------------------------------------------------
+[x].profile-info
+[x].profile-image
+[x].user-blogposts
+[x].user-posts
+[x].blogtitle2
+[x].blogbody2
+[x].createdAt (not unique)
+*/
 
-.profile-section {
-    grid-row: 7/12;
-    grid-column: 1/20;
-    background-color: green;
-    color: white;
-}
-
-.profile-heading {
-    grid-row: 7/8;
-    grid-column: 1/20;
-    background-color: white;
-    color: green;
-}
-
-.profile-picture {
-
-}
-
-.post-section {
-    grid-row: 12/20;
-    grid-column: 1/20;
-    background-color: blue;
-    color: white;
-}
-
-
-
-
-
-/* profile section (left) */
-.box-profile {
-    grid-row: 7/12;
-    grid-column: 1/10;
-    background-color: white;
-    text-align: center;
-    
-}
-
-.heading-profile {
-    grid-row: 7/8;
-    grid-column: 1/10;
-    text-align: center;
-    background: rgba(152, 161, 138, 0.5);
-    margin: 10px;
-}
-
-.profile-picture {
-    grid-row: 8/12;
-    grid-column: 1/5;
-    text-align: center;
-    border: 1px solid #98a18a;
-    margin: 10px;
+.profile-info {
+    grid-column: 1/8; 
+    grid-row: auto;
+    /*background-color: #e0dedf;*/
     color: black;
-}
-
-.profile-description {
-    grid-row: 8/12;
-    grid-column: 5/10;
-    text-align: left;
-    border: 1px solid #98a18a;
-    margin: 10px;
-    padding-left: 5px;
-
-}
-
-/* profile post section (right) */
-.box-recentposts {
-    grid-row: 7/12;
-    grid-column: 10/20;
+    border: 5px solid #98a18a;
+    padding: 15px;
     text-align: center;
+    margin: 5px;
 }
 
-.heading-recentposts {
-    grid-row: 7/8;
-    grid-column: 10/20;
+.profile-image img {
+    width: 50%;
+    height: auto;
+}
+
+.user-blogposts {
     text-align: center;
-    background: rgba(152, 161, 138, 0.5);
-    margin: 10px;
-}
-
-
-.allposts3 {
-    grid-row: 8/12;
-    grid-column: 10/15;
+    grid-column: 8/20;
+    grid-row: auto;
     background-color: white;
-    border: 2px solid #D3D3D3;
-    max-width: 40%;
+    color: black;
+    padding: 15px;
+    border: 5px solid #98a18a;
+    margin: 5px;
+}
+
+.user-posts {
+    background-color: white;
+    border: 5px solid #D3D3D3;
+    width: 50%;
     height: auto;
     overflow: scroll;
     position: relative;
     display: inline-block;
     margin: 5px;
-    padding: 10px;
+    padding: 15px;
     text-align: center;
 }
 
-.individual-post-title {
-/*    display: inline-block;
-    position: relative;*/
-}
-
-.individual-post-body {
-    font-size: 1rem;
-/*    display: inline-block;
-    position: relative;*/
-}
-
-/* -------------------- */
-
-
-
-
-
-/* ---------- ALL USERS (allusers.pug) ---------- */
-.allposts2 {
-    background-color: white;
-    border: 2px solid #D3D3D3;
-    width: 30%;
-    height: auto;
-    overflow: scroll;
-    position: relative;
-    display: inline-block;
-    margin: 5px;
-    padding: 10px;
-    text-align: center;
-}
-
-.user-firstname {
-    font-size: 1.5rem;
+.blogtitle2 {
+    margin-top: 10%;
+    font-size: 1.2rem;
     font-weight: bold;
     color: black;
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
+    color: #3a4b39;
+}
+
+.blogbody2 {
+    font-size: 1rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+/* ---------------------------------------------------------------------------------------- */
+
+
+
+
+
+/* SINGLE PROFILE PAGE (profile_one.pug)-----------------------------------------------------*/
+
+.user-blogposts2 {
+    text-align: center;
+    grid-column: 8/20;
+    grid-row: auto;
+    background-color: white;
+    color: black;
+    padding: 15px;
+    border: 5px solid #98a18a;
+    margin: 5px;
+}
+
+.prof1pic {
+    grid-column: 8/20;
+    grid-row: auto;
+}
+
+
+
+
+/*--------------------------------------------------------------------------------------------*/
+
+
+
+
+
+
+/* ALL USERS (allusers.pug)----------------------------------------------------------------- */
+.allposts2 {
+    background-color: white;
+    border: 5px solid #98a18a;
+    width: 20%;
+    height: 250px;
+    overflow: scroll;
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    margin: 20px;
+}
+
+.user-firstname {
+/*    font-size: 1.5rem;*/
+    font-weight: bold;
+    color: black;
+/*    text-transform: uppercase;
+*/    letter-spacing: 3px;
 }
 
 .user-info {
-    padding-top: 5px;
-    font-size: 1rem;
+    margin:0;
+    padding:0;
+/*    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: bold;*/
 }
 
 .user-profile a {
@@ -377,18 +392,23 @@ single blog entry (entry_one.pug)
     font-size: 1rem;
     color: grey;
     letter-spacing: 3px;
+    margin:0;
+    padding:0;
 }
 
 .user-pic img {
-    object-fit: cover;
+    border-radius: 50%;
+    width: 50%;
+    height: 100px;
+
 }
-/* -------------------- */
+/* ---------------------------------------------------------------------------------------------- */
 
 
 
 
 
-/* ---------- NEW POST (newentry.pug) ---------- */
+/* NEW POST (newentry.pug) ---------------------------------------------------------------------- */
 .center-form {
     text-align: center;
     justify-content: center;
@@ -420,28 +440,28 @@ button {
     width: 50%;
     height: 200px;
 }
-/* -------------------- */
+/* ------------------------------------------------------------------------------------------------ */
 
 
 
 
 
-/* ---------- ALL ENTRIES (entries.pug) ---------- */
+/* ALL ENTRIES (entries.pug)------------------------------------------------------------------------ */
 .allposts {
     background-color: white;
-    border: 2px solid #D3D3D3;
+    border: 5px solid #D3D3D3;
     width: 30%;
-    height: 200px;
+    height: 150px;
     overflow: scroll;
     position: relative;
     display: inline-block;
-    margin: 5px;
-    padding: 10px;
+    margin: 10px;
     text-align: center;
 }
 
 .blogtitle {
-    margin-top: 10%;
+    /*margin-top: 10%;*/
+    margin: 10px;
     font-size: 1.2rem;
     font-weight: bold;
     color: black;
@@ -450,14 +470,14 @@ button {
     color: #3a4b39;
 }
 
-.blogbody {
+/*.blogbody {
     font-size: 1rem;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     padding-left: 5px;
     padding-right: 5px;
-}
+}*/
 
 .bloguser {
     text-align: center;
@@ -466,15 +486,14 @@ button {
     letter-spacing: 2px;
     font-weight: bold;
 }
-/* -------------------- */
+/* ---------------------------------------------------------------------------------------------------- */
 
 
 
 
 
 
-/* ---------- ONE POST (entry_one.pug) ---------- */
-
+/* ONE POST (entry_one.pug) ----------------------------------------------------------------------------- */
 .profile-mainpic {
     grid-row: 1/7;
     grid-column: 1/20;
@@ -489,7 +508,6 @@ button {
     color: black;
 }
 
-/* blog post (left) */
 .blogpost {
     /*grid-row: 7/12;*/
     grid-column: 1/14;
@@ -502,7 +520,6 @@ button {
 }
 
 
-/* user info (right) */
 .blogpost-profile-pic img {
     width: 50%;
     height: auto;
@@ -511,7 +528,7 @@ button {
 .blogpost-profile {
     grid-row: 7/8;
     grid-column: 14/20;   
-    background-color: #e0dedf;
+    /*background-color: #e0dedf;*/
     color: black;
     border: 5px solid #98a18a;
     padding: 15px;
@@ -520,7 +537,7 @@ button {
 }
 
 
-/* ---------- COMMENTS (entry_one.pug) ---------- */
+/*  COMMENTS (entry_one.pug)---------------------------------------------------------------------- */
 /*.profile-picture {
     grid-row: 8/12;
     grid-column: 1/5;
@@ -534,7 +551,7 @@ button {
 .commentform {
     text-align: center;
     grid-column: 1/9;
-    grid-row: 8/15;
+    grid-row: 8/10;
     background-color: white;
     color: black;
     border: 5px solid #98a18a;
@@ -547,18 +564,33 @@ button {
     height: 200px;
 }
 
-.comments {
+.comment-heading {
     text-align: center;
     grid-column: 9/20;
-    grid-row: 8/15;
-    font-size: 1rem;
-
-}
-
-.single-comment {
+    grid-row: 8/9;
     border: 5px solid #98a18a;
     margin: 5px;
     font-size: 2rem;
+}
+
+.comments {
+    text-align: center;
+    grid-column: 9/20;
+    grid-row: 9/15;
+    font-size: 1rem;
+}
+
+.single-comment {
+    border: 2px solid #98a18a;
+    margin: 10px;
+    padding: 10px;
+    font-size: 2rem;
+    background-color: #e0dedf;
+}
+
+.comment-user {
+    text-align: center;
+    text-decoration: underline;
 }
 
 .comment-body {
@@ -566,102 +598,4 @@ button {
 }
 
 
-.createdAt {
-    font-style: italic;
-    font-size: 0.5rem;
-    color: grey;
-
-}
-
-
-/*-------------------------------------------------------------------------- */
-/*  old profile page  */
-
-/*PAGE PERCENTAGES
-100% page length
-50% user profile
-25% profile pic
-25% profile description
-50% previous posts*/
-
-/*50% user profile*/
-/* .profilepic {
-    float: left;
-    position: relative;
-    width: 25%;
-    height: auto;
-    display: inline-block;
-    object-fit: cover;
-    padding: 10px;
-} 25% profile pic
-
-.profilebox1{
-    background-color: #e0dedf;
-    text-align: center;
-    float: left;
-    position: relative;
-    width: 25%;
-    height: auto;
-    display: inline-block;
-    border: 3px solid #CDCCCC;
-} 25% profile description
-
-50% previous posts
-.box-recentposts {
-    text-align: center;
-    width: 50%;
-    height: auto;
-    float: right;
-    position: relative;
-}
-
-.heading-recentposts {
-    text-align: center;
-    height: 10%;
-}
-
-.box-post1 {
-    background-color: #e0dedf;
-    border: 1px dashed black;
-    text-align: center;
-    padding: 15px;
-    margin-left: 20px;
-    margin-right: 20px;
-    float: right;
-    position: absolute;
-    display: inline-block;
-}*/
-/*-------------------------------------*/
-
-
-
-
-/*-------------------------------------*/
-/* old nav bar */
-
-/*.topnav {
-    overflow: hidden;
-    background-color: white;
-    color: black;
-    height: 10%;
-    width: 100%;
-    border: 1px solid #000000;
-
-}
-
-.topnav a {
-    float: left;
-    display: block;
-    color: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-}
-
-.topnav a:hover {
-    background-color: #D3D3D3;
-    color: black;
-}*/
-/*-------------------------------------*/
-
+/*----------------------------------------------------------------------------------------------------*/

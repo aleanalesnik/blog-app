@@ -6,11 +6,13 @@ const session = require('express-session')
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const app = express();
 
+
 // ---------- BCRYPT ----------
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const myPlaintextPassword = 'myPassword';
 const someOtherPlaintextPassword = 'somePassword';
+
 
 // ---------- SEQUELIZE ----------
 const sequelize = new Sequelize('blog_app', process.env.POSTGRES_USER, null, {
@@ -21,6 +23,7 @@ const sequelize = new Sequelize('blog_app', process.env.POSTGRES_USER, null, {
         timestamps: true
     }
 });
+
 
 // ---------- VIEWS ----------
 app.use(express.static('public'))
@@ -43,7 +46,6 @@ app.use(session({
 
 
 // ---------- MULTER ---------- 
-//req.file object is generated
 const multer  = require('multer')
 const myStorage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -80,8 +82,6 @@ const Comment = sequelize.define('comments', {
 // User table : no foreign keys
 // Blogpost table : 1 foreign key (user)
 // Comment table : 2 foreign keys (blogpost & user)
-
-
 User.hasMany(Blogpost);
 Blogpost.belongsTo(User);
 
@@ -98,23 +98,21 @@ sequelize.sync();
 
 
 
-// -------------------- ROUTING -------------------- 
+//  ROUTING 
 
 
 
+// -------------------- HOME / LOGIN FORM --------------------
 
-
-
-// ---------- HOME (GET) ---------- index.pug
-
+// ---------- (GET) index.pug  
 app.get('/', function(request, response) {
     response.render('index', {
-        message: request.query.message, //request.query = query param; displays message depending on situation
-        user: request.session.user // request.session == session object; passes info about an existing user
+        message: request.query.message,
+        user: request.session.user
     });
 });
 
-// ---------- HOME (POST, login form) ---------- index.pug
+// ---------- (POST) index.pug 
 app.post('/', function(request, response) {
 
     var email = request.body.email
@@ -130,13 +128,14 @@ app.post('/', function(request, response) {
             bcrypt.compare(password, user.password, function(err, res) { // compare PW with hash in DB
                 if(res) {
                     request.session.user = user;
-                    response.render('profile', { user: user });
+                    console.log('SESSION IS' + request.session.user);
+                    response.redirect('profile');
                 } else {
-                    response.redirect('/message');
+                    response.redirect('/?message=' + encodeURIComponent('Login not successful! Please try again.'));
                 }  
-            })    
+            })
         } else {
-            response.redirect(`/?message=Login not successful! Please try again.`);
+            response.redirect('/?message=' + encodeURIComponent('This email address does not exist.'));
         }
     })
     .catch(function(error) {
@@ -146,12 +145,16 @@ app.post('/', function(request, response) {
 
 
 
-// ---------- SIGN UP (GET) ----------signup.pug
+
+
+// -------------------- SIGNUP FORM --------------------
+
+// ---------- (GET) signup.pug 
 app.get("/signup", (req, res) => {
     res.render("signup");
 })
 
-// ---------- SIGN UP (POST) ----------signup.pug, redirect to /profile
+// ---------- (POST) signup.pug, redirect to /profile
 app.post('/signup', upload.single('profileImage'), (req, res, next) => {
     let path = req.file.path.replace('public', '')
     bcrypt.hash(req.body.password, 10)
@@ -166,43 +169,99 @@ app.post('/signup', upload.single('profileImage'), (req, res, next) => {
             profilePicture: path
 
         }).then((user) => {
-        req.session.user = user; // where user's details (cookie) exists
-        res.render('profile', { user : user });
+        req.session.user = user;
+        res.redirect ('profile');
         })
     })
 })
 
 
 
-// ---------- PROFILE PAGE (GET) ----------profile.pug
+
+
+// --------------------PROFILE PAGES--------------------
+
+// ---------- (GET) profile.pug 
+
 
 app.get('/profile', function(request, response) {
     const banana = request.session.user;
 
     Blogpost.findAll({
+        where: {
+            userId: banana.id
+        },
         include: [{
             model: User
         }]
     })
-    .then((blogposts) => {
-        response.render('profile', { user: banana});
+        .then((blogposts) => {
+            console.log(blogposts)
+            const mapped = blogposts.map(function(object) {
+                return object.dataValues;
+            });
+            console.log(mapped);
+            response.render('profile', { user: banana, userposts: mapped });
     })
 });
 
-// response.render('profile', { user: banana, postList: blogposts });
+
+// app.get('/profile', function(request, response) {
+    
+//     const user = request.session.user;
+
+//     Blogpost.findAll({
+//         where: {
+//             userId: user.id
+//         }
+//     })
+//     .then((blogposts) => {
+//         const mapped = blogposts.map( function(object) {
+//             return object.dataValues;
+//         });
+
+//         response.render('profile', { user: user, userposts: mapped});
+//     })
+// });
 
 
 
-// ---------- NEW ENTRY (GET) ---------- (newentry.pug)
+// --------------------PROFILE ID--------------------
+
+
+
+// ---------- (GET) profile_one.pug --- indiv. profile page
+app.get('/allusers/:profileId', (req,res) =>{
+
+    const profileId = req.params.profileId;
+
+    User.findOne({
+        where: {
+            id: profileId
+        },
+        include: [{
+            model: Blogpost
+        }]
+    })
+    .then(function(user) {
+        res.render("profile_one", {id: profileId, firstname: user.firstname, lastname: user.lastname, email: user.email, username: user.username, profilePicture: user.profilePicture})
+    })
+})
+
+
+
+
+
+
+// --------------------NEW ENTRY--------------------
+
+// ---------- (GET) newentry.pug
 app.get('/newentry', function(req, res) {
     console.log('Logged in user is ' + req.session.user.username)
     res.render("newentry");
 });
 
-
-
-// ---------- NEW ENTRY BOOK (POST) ---------- (redirect to entry_one.pug)
-
+// ---------- (POST) newentry.pug --- redirect to entry_one.pug
 app.post('/newentry', function(req, res) {
 
     var title = req.body.title;
@@ -228,8 +287,14 @@ app.post('/newentry', function(req, res) {
 });
 
 
-// ---------- ENTRIES (GET) ----------  (entries.pug)
+
+
+
+// --------------------ALL ENTRIES--------------------
+
+// ---------- (GET) entries.pug
 app.get('/entries', function(req, res) {
+
     Blogpost.findAll({
             include: [{
                 model: User
@@ -240,57 +305,75 @@ app.get('/entries', function(req, res) {
         })
 })
 
-
-// ---------- ENTRIES - blogpost & user (GET) ---------- (entry_one.pug)
+// ---------- (GET) entry_one.pug --- blogpostId
 app.get('/entries/:blogpostId', function(req, res) {
     
     const blogpostId = req.params.blogpostId;
 
-    // let post = {};
-    // let author = {};
+    let post = {};
+    let author = {};
 
     Blogpost.findOne({
             where: {
                 id: blogpostId
             },
             include: [{
-                model: User
-            },{model: Comment}]
-        })
-        .then(function(blogpost) {
-            // console.log(`Blogpost is ${JSON.stringify(blogpost)}`)
-            // go through the list os userId's 
-                
+                model: User}]
+            })
+    .then(function(blogpost) {
+        post = blogpost.dataValues;
+        author = blogpost.user.dataValues;
 
-            res.render("entry_one", { title: blogpost.title, body: blogpost.body, id: blogpostId, userValue: blogpost.user, commentValue: blogpost.comments});
+        return Comment.findAll({
+            where: {
+                blogpostId: blogpostId
+            },
+            include: [{
+                model: User}]
         })
+    })
+    .then( comments => {
+        const mappedComments = comments.map( function(object) {
+            return object.dataValues;
+        });
+
+        res.render("entry_one", { blogpost: post, user: author, comments: mappedComments});
+    });
 });
 
 
 
 
+// app.get('/entries/:blogpostId', function(req, res) {
+    
+//     const blogpostId = req.params.blogpostId;
 
-// ---------- PROFILE ID ---------- (profile_one.pug)
-app.get('/allusers/:profileId', (req,res) =>{
+//     let post = {};
+//     let author = {};
 
-    const profileId = req.params.profileId;
+//     Blogpost.findOne({
+//             where: {
+//                 id: blogpostId
+//             },
+//             include: [{
+//                 model: User
+//             },{model: Comment}]
+//         })
+//         .then(function(blogpost) {
+//             // console.log(`Blogpost is ${JSON.stringify(blogpost)}`)
+//             // go through the list os userId's 
 
-    User.findOne({
-        where: {
-            id: profileId
-        },
-        include: [{
-            model: Blogpost
-        }]
-    })
-    .then(function(user) {
-        res.render("profile_one", {id: profileId, firstname: user.firstname, lastname: user.lastname, email: user.email, username: user.username, profilePicture: user.profilePicture})
-    })
-})
+//             res.render("entry_one", { title: blogpost.title, body: blogpost.body, id: blogpostId, userValue: blogpost.user, commentValue: blogpost.comments});
+//         })
+// });
 
 
 
-// ---------- SHOW ALL USERS (GET) ---------- allusers.pug
+
+
+// --------------------ALL USERS--------------------
+
+// ---------- (GET) allusers.pug
 app.get('/allusers', function (request, response) {
     User.findAll().then(function (users) {
         users = users.map(function (userRow) {
@@ -312,16 +395,20 @@ app.get('/allusers', function (request, response) {
 });
 
 
-// ---------- COMMENT (POST, ID) ----------no pug page
 
-app.post('/entry_one', function(req, res) {
+
+
+// --------------------COMMENTS--------------------
+// no pug page
+// exists on entry_one.pug
+
+// ---------- (POST)
+app.post('/entry_one/:blogpostId', function(req, res) {
    
     var argument = req.body.argument;
-    var userId = req.session.user.id
-    var blogpostId = parseInt(req.body.blogpostId)
-    // console.log(blogpostId)
-    // console.log(typeof(blogpostId))
-    // console.log(req.body)
+    var userId = req.session.user.id;
+    var blogpostId = req.params.blogpostId;
+
     User.findOne({
         where: {
             id: userId
@@ -342,7 +429,9 @@ app.post('/entry_one', function(req, res) {
 
 
 
-// ---------- LOG OUT PAGE (GET) ----------
+// --------------------LOGOUT--------------------
+
+// ---------- (GET) no pug page
 app.get('/logout', function (request, response) {
     request.session.destroy(function(error) {
         if(error) {
@@ -351,6 +440,7 @@ app.get('/logout', function (request, response) {
         response.redirect('/?message=' + encodeURIComponent('Successfully logged out.'));
     })
 });
+
 
 
 

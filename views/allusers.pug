@@ -7,14 +7,12 @@ block content
 	each user in userResults
 		.allposts2
 			.user-firstname
-				| #{user.firstname}
+				h2 #{user.firstname}
 			.user-pic
-				img(src=`${user.profilePicture}` style='width:45%;height:45%;border-radius:100%')
+				img(src=`${user.profilePicture}`)
 			.user-info
-				| Username : #{user.username}
-				br
-				| Email Address : #{user.email}
-				br
-				| User ID :  #{user.id}
+				h6 Username
+				| #{user.username}
+			br
 			.user-profile
-				a(href='/allusers/'+user.id) View Profile
+				a(href='/allusers/'+user.id) Profile

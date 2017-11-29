@@ -11,9 +11,4 @@ block content
 			br
 			.blogbody
 				| #{blogpost.body}
-			br
-			.bloguser
-				| Written By: #{blogpost.user.username}
-				br
-				a(href='/entries/'+blogpost.id) Learn More
-				
+			a(href='/entries/'+blogpost.id) Learn More
