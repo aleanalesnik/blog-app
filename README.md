@@ -5,8 +5,18 @@ Amsterdam Eats is a NodeJS blog application I created during Week 10 of the NYCD
 > Even Obama is a member of Amsterdam Eats!
 
 ## Technologies and Languages
-HTML5 | CSS3 | JavaScript | Node.js | Express | Pug | PostgreSQL | Sequelize
-Express-Session | Connect-Session-Sequelize | Body-Parser | BCrypt
++ HTML5
++ CSS3
++ JavaScript
++ Node.js
++ Express
++ Pug
++ PostgreSQL
++ Sequelize
++ Express-Session
++ Connect-Session-Sequelize
++ Body-Parser
++ BCrypt
 
 ![banner](https://github.com/aleanalesnik/blog-app/blob/master/public/images/screenshots/nova-blogpost.png?raw=true)
 > Select specific posts that belong to a user and give your two cents!
