@@ -2,7 +2,7 @@ extends layout
 
 block content
 	h1 Sign Up!
-	form.col.s12(action='/signup', method='POST', autocomplete='off', enctype='multipart/form-data')
+	form#myform.col.s12(action='/signup', method='POST', autocomplete='off', enctype='multipart/form-data' attr='myform')
 		p First Name
 		input(type='text', name='firstname', placeholder='first name' required)
 		br
@@ -16,11 +16,40 @@ block content
 		input(type='text', name='email', placeholder='Enter your email' required)
 		br
 		p Password
-		input(type='password', name='password', placeholder='Choose a password' required)
+		input#password(name='password', type='password' required)
+
+		p Confirm Password:
+		input#password_confirm(name='password_confirm', required='required', type='password', oninput='check(this)')
 		br
 		p Profile Picture
 		input(type='file', name='profileImage', placeholder='Make yourself look good')
 		br
 		br
-		button.btn.btn-default#signup(type="submit", name="submit") CREATE ACCOUNT
+		button.btn.btn-default#signup(type="submit", name="submit" value="click") CREATE ACCOUNT
 		p= message
+
+	script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+	script.
+		function check(input) {
+			if (input.value != document.getElementById('password').value) {
+				input.setCustomValidity('Password Must be Matching.');
+			} else {
+				input.setCustomValidity('');
+			}
+		}
+
+
+		//- $( document ).ready(function() {
+		
+		//- 	$(".buttonClick").click(function () {
+
+		//- 		if ($("input[type=password]").filter(function () {
+		//- 			return this.value.match	(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/);
+		//- 		})) {
+		//- 			alert("pass");
+		//- 		} else {
+		//- 			$("message").alert("fail");
+		//- 		}
+		//- 	});
+
+		//- });
